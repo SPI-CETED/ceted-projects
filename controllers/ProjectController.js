@@ -9,5 +9,5 @@ module.exports = function(app) {
 
   var ProjectController = {};
 
-  return UserController;
+  return ProjectController;
 }
