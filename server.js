@@ -25,7 +25,7 @@ var port = process.env.PORT || 8083;
 models.sequelize.sync().then(function () {
   http.listen(port);
 
-  console.log('sw-profile listening on port ' + port);
+  console.log('ceted-projects listening on port ' + port);
 
   exports = module.exports = app;
 });
