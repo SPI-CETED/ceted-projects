@@ -1,0 +1,403 @@
+{
+	"variables": [],
+	"info": {
+		"name": "CETED-PROJECTS",
+		"_postman_id": "7e9cf1ed-15fe-4133-fe0b-4a203ea2d80c",
+		"description": "",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "PROJECT",
+			"description": "",
+			"item": [
+				{
+					"name": "list",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is 200\"] = responseCode.code === 200;",
+									"",
+									"var jsonData = JSON.parse(responseBody);",
+									"tests[\"Return is an array\"] = jsonData instanceof Array;"
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "localhost:8083/project",
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "create",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Successful POST request\"] = responseCode.code === 201 || responseCode.code === 202;",
+									"",
+									"var jsonData = JSON.parse(responseBody);",
+									"tests[\"Name is 'Projeto muito louco'\"] = jsonData.name === 'Projeto muito louco';",
+									"tests[\"Definition is 'Esse projeto e muito louco'\"] = jsonData.definition === 'Esse projeto e muito louco';",
+									"tests[\"Status is 'Ativo'\"] = jsonData.status === 'Ativo';",
+									"tests[\"Deadline is '2016-11-11'\"] = jsonData.deadline === '2016-11-11';",
+									"tests[\"Project Objective is 'O objetivo deste projeto e ter um objetivo'\"] = jsonData.project_objective === 'O objetivo deste projeto e ter um objetivo';",
+									"tests[\"Project Result is 'Nao temos um resultado'\"] = jsonData.project_result === 'Nao temos um resultado';",
+									"",
+									"postman.setGlobalVariable(\"projectId\", jsonData.id_project);"
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "localhost:8083/project",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/x-www-form-urlencoded",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "name",
+									"value": "Projeto muito louco",
+									"type": "text",
+									"enabled": true
+								},
+								{
+									"key": "definition",
+									"value": "Esse projeto e muito louco",
+									"type": "text",
+									"enabled": true
+								},
+								{
+									"key": "status",
+									"value": "Ativo",
+									"type": "text",
+									"enabled": true
+								},
+								{
+									"key": "deadline",
+									"value": "2016-11-11",
+									"type": "text",
+									"enabled": true
+								},
+								{
+									"key": "project_objective",
+									"value": "O objetivo deste projeto e ter um objetivo",
+									"type": "text",
+									"enabled": true
+								},
+								{
+									"key": "project_result",
+									"value": "Nao temos um resultado",
+									"type": "text",
+									"enabled": true
+								}
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "findById",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is 200\"] = responseCode.code === 200;"
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "localhost:8083/project/{{projectId}}",
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "update",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is 204\"] = responseCode.code === 204;",
+									""
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "localhost:8083/project/{{projectId}}",
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "name",
+									"value": "Projeto mais que muito louco",
+									"type": "text",
+									"enabled": true
+								},
+								{
+									"key": "definition",
+									"value": "Esse projetoe e mais que muito louco",
+									"type": "text",
+									"enabled": true
+								},
+								{
+									"key": "status",
+									"value": "Inativo",
+									"type": "text",
+									"enabled": true
+								},
+								{
+									"key": "deadline",
+									"value": "2016-11-30",
+									"type": "text",
+									"enabled": true
+								},
+								{
+									"key": "project_objective",
+									"value": "O objetivo deste projeto e ter um objetivo e ainda objetivar",
+									"type": "text",
+									"enabled": true
+								},
+								{
+									"key": "project_result",
+									"value": "Funciona",
+									"type": "text",
+									"enabled": true
+								}
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "delete",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is 204\"] = responseCode.code === 204;",
+									""
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "localhost:8083/project/{{projectId}}",
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"description": ""
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "RESULT",
+			"description": "",
+			"item": []
+		},
+		{
+			"name": "SEGMENT",
+			"description": "",
+			"item": [
+				{
+					"name": "list",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is 200\"] = responseCode.code === 200;",
+									"",
+									"var jsonData = JSON.parse(responseBody);",
+									"tests[\"Return is an array\"] = jsonData instanceof Array;"
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "localhost:8083/segment",
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "create",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Successful POST request\"] = responseCode.code === 201 || responseCode.code === 202;",
+									"",
+									"var jsonData = JSON.parse(responseBody);",
+									"tests[\"Description is 'Segmento do projeto'\"] = jsonData.description === 'Segmento do projeto';",
+									"",
+									"postman.setGlobalVariable(\"segmentId\", jsonData.id_segment);"
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "localhost:8083/segment",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/x-www-form-urlencoded",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "description",
+									"value": "Segmento do projeto",
+									"type": "text",
+									"enabled": true
+								}
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "findById",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is 200\"] = responseCode.code === 200;"
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "localhost:8083/project/{{segmentId}}",
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "update",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is 204\"] = responseCode.code === 204;",
+									""
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "localhost:8083/segment/{{segmentId}}",
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "description",
+									"value": "Novo segmento do projeto",
+									"type": "text",
+									"enabled": true
+								}
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "delete",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is 204\"] = responseCode.code === 204;",
+									""
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "localhost:8083/segment/{{segmentId}}",
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"description": ""
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
