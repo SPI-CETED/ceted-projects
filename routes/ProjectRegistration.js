@@ -6,5 +6,4 @@ module.exports = function(app){
   app.post('/v1/projectsregistration', controller.insert);
   // app.put('/v1/projectsregistration/:id', controller);
   // app.delete('/v1/projectsregistration/:id', controller);
-
 }
