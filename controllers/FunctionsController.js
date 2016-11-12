@@ -1,5 +1,5 @@
 var models = require('../models');
-var Function = models.Function;
+var Function = models.Functions;
 
 
 module.exports = function(app) {
@@ -7,6 +7,7 @@ module.exports = function(app) {
         var FunctionController = {
 
             create : function(req, res){
+                console.log(models);
                 Function.build(req.body).save().then(function(func){
 
                     functionCreated(func, res);
