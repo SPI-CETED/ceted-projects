@@ -33,6 +33,25 @@ module.exports = function(app) {
       });
     },
 
+    list: function(req, res){
+      var limit = req.query.limit || 10;
+      limit = parseInt(limit);
+      var offset = req.query.offset || 0;
+      offset = parseInt(offset);
+
+      ProjectRegistration.findAll({
+        limit: limit,
+        offset: offset,
+        order: 'id DESC'
+      }).then(function(projects){
+        var data = {};
+        data.result = projects;
+        data.limit = limit;
+        data.offset = offset;
+        res.status(200).json(data);
+      })
+    }
+
   };
 
   var projectRegistrationUpdated = function(projectRegistration, res){
