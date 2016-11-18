@@ -34,7 +34,7 @@ module.exports = function(app) {
             jsonResponse.message = message;
         }
         if(!!history){
-            jsonResponse.history = historys;
+            jsonResponse.history = history;
         }
         if(!!error){
             jsonResponse.error = error;
