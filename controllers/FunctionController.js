@@ -1,5 +1,5 @@
 var models = require('../models');
-var Function = models.Functions;
+var Function = models.Function;
 
 
 module.exports = function(app) {
