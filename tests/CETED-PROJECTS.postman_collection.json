@@ -8,6 +8,56 @@
 	},
 	"item": [
 		{
+			"name": "FUNCTION",
+			"description": "",
+			"item": [
+				{
+					"name": "create",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Successful POST request\"] = responseCode.code === 201 || responseCode.code === 202;",
+									"",
+									"var jsonData = JSON.parse(responseBody);",
+									"tests[\"Message is 'History Created'\"] = jsonData.message === 'History Created';",
+									"tests[\"Function is 'Function do projeto'\"] = jsonData.hability.description === 'Function do projeto';",
+									"",
+									"postman.setGlobalVariable(\"functionId\", jsonData.hability.id_function);"
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "localhost:8083/v1/functions",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/x-www-form-urlencoded",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "description",
+									"value": "Function do projeto",
+									"type": "text",
+									"enabled": true
+								}
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				}
+			]
+		},
+		{
 			"name": "PROJECT",
 			"description": "",
 			"item": [
@@ -50,12 +100,13 @@
 									"tests[\"Successful POST request\"] = responseCode.code === 201 || responseCode.code === 202;",
 									"",
 									"var jsonData = JSON.parse(responseBody);",
-									"tests[\"Name is 'Projeto muito louco'\"] = jsonData.name === 'Projeto muito louco';",
-									"tests[\"Definition is 'Esse projeto e muito louco'\"] = jsonData.definition === 'Esse projeto e muito louco';",
-									"tests[\"Status is 'Ativo'\"] = jsonData.status === 'Ativo';",
-									"tests[\"Deadline is '2016-11-11'\"] = jsonData.deadline === '2016-11-11';",
-									"tests[\"Project Objective is 'O objetivo deste projeto e ter um objetivo'\"] = jsonData.project_objective === 'O objetivo deste projeto e ter um objetivo';",
-									"tests[\"Project Result is 'Nao temos um resultado'\"] = jsonData.project_result === 'Nao temos um resultado';",
+									"tests[\"Message is 'ProjectRegistration Created'\"] = jsonData.message === 'ProjectRegistration Created';",
+									"tests[\"Name is 'Projeto muito louco'\"] = jsonData.hability.name === 'Projeto muito louco';",
+									"tests[\"Definition is 'Esse projeto e muito louco'\"] = jsonData.hability.definition === 'Esse projeto e muito louco';",
+									"tests[\"Status is 'Ativo'\"] = jsonData.hability.status === 'Ativo';",
+									"tests[\"Deadline is '2016-11-11'\"] = jsonData.hability.deadline === '2016-11-11';",
+									"tests[\"Project Objective is 'O objetivo deste projeto e ter um objetivo'\"] = jsonData.hability.project_objective === 'O objetivo deste projeto e ter um objetivo';",
+									"tests[\"Project Result is 'Nao temos um resultado'\"] = jsonData.hability.project_result === 'Nao temos um resultado';",
 									"",
 									"postman.setGlobalVariable(\"projectId\", jsonData.id_project);"
 								]
@@ -234,9 +285,61 @@
 			]
 		},
 		{
-			"name": "RESULT",
+			"name": "PROJECT_HISTORY",
 			"description": "",
-			"item": []
+			"item": [
+				{
+					"name": "create",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Successful POST request\"] = responseCode.code === 201 || responseCode.code === 202;",
+									"",
+									"var jsonData = JSON.parse(responseBody);",
+									"tests[\"Message is 'History Created'\"] = jsonData.message === 'History Created';",
+									"tests[\"Historic is 'Historico do projeto'\"] = jsonData.history.historic === 'Historico do projeto';",
+									"tests[\"Deadline is '2016-11-11'\"] = jsonData.history.deadline === '2016-11-11';",
+									"",
+									"postman.setGlobalVariable(\"historyId\", jsonData.history.id_project);"
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "localhost:8083/v1/projects/history/",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/x-www-form-urlencoded",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "historic",
+									"value": "Historico do projeto",
+									"type": "text",
+									"enabled": true
+								},
+								{
+									"key": "deadline",
+									"value": "2016-11-11",
+									"type": "text",
+									"enabled": true
+								}
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				}
+			]
 		},
 		{
 			"name": "SEGMENT",
@@ -281,7 +384,8 @@
 									"tests[\"Successful POST request\"] = responseCode.code === 201 || responseCode.code === 202;",
 									"",
 									"var jsonData = JSON.parse(responseBody);",
-									"tests[\"Description is 'Segmento do projeto'\"] = jsonData.description === 'Segmento do projeto';",
+									"tests[\"Segment Created'\"] = jsonData.message === 'Segment Created';",
+									"tests[\"Description is 'Segmento do projeto'\"] = jsonData.segment.description === 'Segmento do projeto';",
 									"",
 									"postman.setGlobalVariable(\"segmentId\", jsonData.id_segment);"
 								]
