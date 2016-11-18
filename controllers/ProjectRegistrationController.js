@@ -27,6 +27,16 @@ module.exports = function(app) {
       });    
     },
 
+    findById : function(req, res){
+      ProjectRegistration.findOne({where: {id: req.params.id}}).then(function(projectRegistration){
+        if(projectRegistration){
+          res.status(200).json(projectRegistration);
+        }else{
+          projectRegistrationNotFound(res);
+        }
+      });
+    },
+
     delete : function(req, res){
       ProjectRegistration.destroy({where: {id: req.params.id}}).then(function(){
         projectRegistrationDeleted(res);
