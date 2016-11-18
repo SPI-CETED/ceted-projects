@@ -6,7 +6,7 @@ module.exports = function(app) {
 
     var SegmentController = {
 
-        create : function(req, res){
+        insert : function(req, res){
             Segment.build(req.body).save().then(function(segment){
 
     			segmentCreated(segment, res);
