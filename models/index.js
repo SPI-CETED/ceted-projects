@@ -5,10 +5,10 @@ var path      = require("path");
 var Sequelize = require("sequelize");
 var env       = process.env.NODE_ENV || "development";
 
-var dbConfig    = require('../config/db.json');
-var sequelize = new Sequelize(dbConfig.name, dbConfig.user, dbConfig.password, {
-  host: dbConfig.host,
-  port: dbConfig.port
+//var dbConfig    = require('../config/db.json');
+var sequelize = new Sequelize('CETED', 'root', 'pedro123', {
+  host: '127.0.0.1',
+  port: 3306
 });
 
 var db = {};
