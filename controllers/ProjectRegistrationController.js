@@ -76,8 +76,8 @@ module.exports = function(app) {
     buildResponse(res, 500, 'ProjectRegistration not Updated', null, err);
   };
 
-  var projectRegistrationCreated = function(hability, res){
-    buildResponse(res, 201, 'ProjectRegistration Created', hability);
+  var projectRegistrationCreated = function(projectRegistration, res){
+    buildResponse(res, 201, 'ProjectRegistration Created', projectRegistration);
   };
 
   var errorCreatingProjectregistration = function(res, err){
@@ -88,13 +88,13 @@ module.exports = function(app) {
     buildResponse(res, 200, 'ProjectRegistration Deleted');
   };
 
-  var buildResponse = function(res, statusCode, message, hability, error){
+  var buildResponse = function(res, statusCode, message, projectRegistration, error){
     var jsonResponse = {};
       if(!!message){
         jsonResponse.message = message;
       }
-      if(!!hability){
-        jsonResponse.hability = hability;
+      if(!!projectRegistration){
+        jsonResponse.projectRegistration = projectRegistration;
       }
       if(!!error){
         jsonResponse.error = error;
