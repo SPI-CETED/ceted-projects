@@ -27,6 +27,12 @@ module.exports = function(app) {
       });    
     },
 
+    delete : function(req, res){
+      ProjectRegistration.destroy({where: {id: req.params.id}}).then(function(){
+        projectRegistrationDeleted(res);
+      });
+    },
+
   };
 
   var projectRegistrationUpdated = function(projectRegistration, res){
@@ -47,6 +53,10 @@ module.exports = function(app) {
 
   var errorCreatingProjectregistration = function(res, err){
     buildResponse(res, 500, 'ProjectRegistration not Created', null, err);
+  };
+
+  var projectRegistrationDeleted = function(res){
+    buildResponse(res, 200, 'ProjectRegistration Deleted');
   };
 
   var buildResponse = function(res, statusCode, message, hability, error){
