@@ -9,7 +9,7 @@ module.exports = function(sequelize, DataTypes) {
     	type: DataTypes.STRING(255)
     },
     deadline: {
-    	type: DataTypes.DATE
+    	type: DataTypes.DATEONLY
     }
   });
 
