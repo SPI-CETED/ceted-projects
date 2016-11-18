@@ -28,7 +28,7 @@
 						}
 					],
 					"request": {
-						"url": "localhost:8083/project",
+						"url": "localhost:8083/v1/projectsregistration",
 						"method": "GET",
 						"header": [],
 						"body": {
@@ -63,7 +63,7 @@
 						}
 					],
 					"request": {
-						"url": "localhost:8083/project",
+						"url": "localhost:8083/v1/projectsregistration",
 						"method": "POST",
 						"header": [
 							{
@@ -131,7 +131,7 @@
 						}
 					],
 					"request": {
-						"url": "localhost:8083/project/{{projectId}}",
+						"url": "localhost:8083/v1/projectsregistration/{{projectId}}",
 						"method": "GET",
 						"header": [],
 						"body": {
@@ -157,7 +157,7 @@
 						}
 					],
 					"request": {
-						"url": "localhost:8083/project/{{projectId}}",
+						"url": "localhost:8083/v1/projectsregistration/{{projectId}}",
 						"method": "PUT",
 						"header": [],
 						"body": {
@@ -220,7 +220,7 @@
 						}
 					],
 					"request": {
-						"url": "localhost:8083/project/{{projectId}}",
+						"url": "localhost:8083/v1/projectsregistration/{{projectId}}",
 						"method": "DELETE",
 						"header": [],
 						"body": {
@@ -259,7 +259,7 @@
 						}
 					],
 					"request": {
-						"url": "localhost:8083/segment",
+						"url": "localhost:8083/v1/segments",
 						"method": "GET",
 						"header": [],
 						"body": {
@@ -289,7 +289,7 @@
 						}
 					],
 					"request": {
-						"url": "localhost:8083/segment",
+						"url": "localhost:8083/v1/segments",
 						"method": "POST",
 						"header": [
 							{
@@ -327,7 +327,7 @@
 						}
 					],
 					"request": {
-						"url": "localhost:8083/project/{{segmentId}}",
+						"url": "localhost:8083/v1/segments/{{segmentId}}",
 						"method": "GET",
 						"header": [],
 						"body": {
@@ -353,7 +353,7 @@
 						}
 					],
 					"request": {
-						"url": "localhost:8083/segment/{{segmentId}}",
+						"url": "localhost:8083/v1/segments/{{segmentId}}",
 						"method": "PUT",
 						"header": [],
 						"body": {
@@ -386,7 +386,7 @@
 						}
 					],
 					"request": {
-						"url": "localhost:8083/segment/{{segmentId}}",
+						"url": "localhost:8083/v1/segments/{{segmentId}}",
 						"method": "DELETE",
 						"header": [],
 						"body": {
