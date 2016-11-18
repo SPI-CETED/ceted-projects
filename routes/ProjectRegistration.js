@@ -4,6 +4,6 @@ module.exports = function(app){
   // app.get('/v1/projectsregistration', controller);
   // app.get('/v1/projectsregistration/:id', controller);
   app.post('/v1/projectsregistration', controller.insert);
-  // app.put('/v1/projectsregistration/:id', controller);
+  app.put('/v1/projectsregistration/:id', controller.update);
   // app.delete('/v1/projectsregistration/:id', controller);
 }
