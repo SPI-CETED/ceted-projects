@@ -38,7 +38,7 @@ module.exports = function(app) {
     },
 
     delete : function(req, res){
-      ProjectRegistration.destroy({where: {id: req.params.id}}).then(function(){
+      ProjectRegistration.destroy({where: {id_project: req.params.id}}).then(function(){
         projectRegistrationDeleted(res);
       });
     },
