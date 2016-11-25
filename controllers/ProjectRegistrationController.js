@@ -52,7 +52,7 @@ module.exports = function(app) {
       ProjectRegistration.findAll({
         limit: limit,
         offset: offset,
-        order: 'id DESC'
+        order: 'id_project DESC'
       }).then(function(projects){
         var data = {};
         data.result = projects;
