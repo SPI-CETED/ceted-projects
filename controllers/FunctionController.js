@@ -7,9 +7,7 @@ module.exports = function(app) {
         var FunctionController = {
 
             create : function(req, res){
-                console.log(models);
                 Function.build(req.body).save().then(function(func){
-
                     functionCreated(func, res);
 
                 }).catch(function(error){
@@ -22,20 +20,20 @@ module.exports = function(app) {
         };
 
         var functionCreated = function(func, res){
-            buildResponse(res, 201, 'Function Created', hability);
+            buildResponse(res, 201, 'Function Created', func);
         };
 
         var errorCreatingHability = function(res, err){
             buildResponse(res, 500, 'Function not Created', null, err);
         };
 
-        var buildResponse = function(res, statusCode, message, hability, error){
+        var buildResponse = function(res, statusCode, message, func, error){
             var jsonResponse = {};
             if(!!message){
                 jsonResponse.message = message;
             }
-            if(!!hability){
-                jsonResponse.hability = hability;
+            if(!!func){
+                jsonResponse.func = func;
             }
             if(!!error){
                 jsonResponse.error = error;
