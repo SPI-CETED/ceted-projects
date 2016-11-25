@@ -12,6 +12,34 @@
 			"description": "",
 			"item": [
 				{
+					"name": "list",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is 200\"] = responseCode.code === 200;",
+									"",
+									"var jsonData = JSON.parse(responseBody);",
+									"tests[\"Return is an array\"] = jsonData instanceof Array;"
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "localhost:8083/v1/functions",
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
 					"name": "create",
 					"event": [
 						{
@@ -50,6 +78,90 @@
 									"enabled": true
 								}
 							]
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "findById",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is 200\"] = responseCode.code === 200;"
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "localhost:8083/v1/functions/{{functionId}}",
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "update",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is 204\"] = responseCode.code === 204;",
+									""
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "localhost:8083/v1/functions/{{functionId}}",
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "description",
+									"value": "Funcao e coisa do capeta",
+									"type": "text",
+									"enabled": true
+								}
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "delete",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is 204\"] = responseCode.code === 204;",
+									""
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "localhost:8083/v1/functions/{{functionId}}",
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
 						},
 						"description": ""
 					},
@@ -101,14 +213,14 @@
 									"",
 									"var jsonData = JSON.parse(responseBody);",
 									"tests[\"Message is 'ProjectRegistration Created'\"] = jsonData.message === 'ProjectRegistration Created';",
-									"tests[\"Name is 'Projeto muito louco'\"] = jsonData.hability.name === 'Projeto muito louco';",
-									"tests[\"Definition is 'Esse projeto e muito louco'\"] = jsonData.hability.definition === 'Esse projeto e muito louco';",
-									"tests[\"Status is 'Ativo'\"] = jsonData.hability.status === 'Ativo';",
-									"tests[\"Deadline is '2016-11-11'\"] = jsonData.hability.deadline === '2016-11-11';",
-									"tests[\"Project Objective is 'O objetivo deste projeto e ter um objetivo'\"] = jsonData.hability.project_objective === 'O objetivo deste projeto e ter um objetivo';",
-									"tests[\"Project Result is 'Nao temos um resultado'\"] = jsonData.hability.project_result === 'Nao temos um resultado';",
+									"tests[\"Name is 'Projeto muito louco'\"] = jsonData.projectRegistration.name === 'Projeto muito louco';",
+									"tests[\"Definition is 'Esse projeto e muito louco'\"] = jsonData.projectRegistration.definition === 'Esse projeto e muito louco';",
+									"tests[\"Status is 'Ativo'\"] = jsonData.projectRegistration.status === 'Ativo';",
+									"tests[\"Deadline is '2016-11-11'\"] = jsonData.projectRegistration.deadline === '2016-11-11';",
+									"tests[\"Project Objective is 'O objetivo deste projeto e ter um objetivo'\"] = jsonData.projectRegistration.project_objective === 'O objetivo deste projeto e ter um objetivo';",
+									"tests[\"Project Result is 'Nao temos um resultado'\"] = jsonData.projectRegistration.project_result === 'Nao temos um resultado';",
 									"",
-									"postman.setGlobalVariable(\"projectId\", jsonData.id_project);"
+									"postman.setGlobalVariable(\"projectId\", jsonData.projectRegistration.id_project);"
 								]
 							}
 						}
@@ -342,6 +454,40 @@
 			]
 		},
 		{
+			"name": "RESULT",
+			"description": "",
+			"item": [
+				{
+					"name": "list",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is 200\"] = responseCode.code === 200;",
+									"",
+									"var jsonData = JSON.parse(responseBody);",
+									"tests[\"Return is an array\"] = jsonData instanceof Array;"
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "localhost:8083/v1/projectsresult",
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"description": ""
+					},
+					"response": []
+				}
+			]
+		},
+		{
 			"name": "SEGMENT",
 			"description": "",
 			"item": [
@@ -387,7 +533,7 @@
 									"tests[\"Segment Created'\"] = jsonData.message === 'Segment Created';",
 									"tests[\"Description is 'Segmento do projeto'\"] = jsonData.segment.description === 'Segmento do projeto';",
 									"",
-									"postman.setGlobalVariable(\"segmentId\", jsonData.id_segment);"
+									"postman.setGlobalVariable(\"segmentId\", jsonData.segment.id_segment);"
 								]
 							}
 						}
