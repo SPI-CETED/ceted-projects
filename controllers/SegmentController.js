@@ -35,7 +35,7 @@ module.exports = function(app) {
 	      })
 	    },
 	    findById : function(req, res){
-	      	Segment.findOne({where: {id: req.params.id}}).then(function(segment){
+	      	Segment.findOne({where: {id_segment: req.params.id}}).then(function(segment){
 	        	if(segment){
 	          		res.status(200).json(segment);
 	        	}else{
