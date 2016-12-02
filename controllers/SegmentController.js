@@ -42,8 +42,29 @@ module.exports = function(app) {
 	          		segmentNotFound(res);
 	        	}
 	      	});
-	    }
+	    },
+	    update: function(req, res){
+        	Segment.findOne({where: {id_segment: req.params.id}}).then(function(segment){
+            	if(segment){
+              		Segment.updateAttributes(req.body).then(function(segment){
+                		segmentUpdated(segment, res);
+              		}).catch(function(error){
+                		errorUpdatingSegment(res, error);
+              		});
+            	}else{
+              		segmentNotFound(res);
+            	}
+          });    
+        }
 
+    };
+
+    var errorUpdatingSegment = function(res, err){
+        buildResponse(res, 500, 'Segment not Updated', null, err);
+    };
+
+    var segmentUpdated = function(segment, res){
+        buildResponse(res, 201, 'Segment Updated', segment);
     };
 
     var segmentNotFound = function(res){
