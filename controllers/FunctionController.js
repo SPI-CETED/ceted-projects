@@ -15,6 +15,25 @@ module.exports = function(app) {
                     errorCreatingHability(res, error);
 
                 });
+            },
+            
+            list: function(req, res){
+              var limit = req.query.limit || 10;
+              limit = parseInt(limit);
+              var offset = req.query.offset || 0;
+              offset = parseInt(offset);
+
+              Function.findAll({
+                limit: limit,
+                offset: offset,
+                order: 'id DESC'
+              }).then(function(functions){
+                var data = {};
+                data.result = functions;
+                data.limit = limit;
+                data.offset = offset;
+                res.status(200).json(data);
+              })
             }
 
         };
