@@ -28,7 +28,7 @@ module.exports = function(app) {
     },
 
     findById : function(req, res){
-      ProjectRegistration.findOne({where: {id: req.params.id}}).then(function(projectRegistration){
+      ProjectRegistration.findOne({where: {id_project: req.params.id}}).then(function(projectRegistration){
         if(projectRegistration){
           res.status(200).json(projectRegistration);
         }else{
