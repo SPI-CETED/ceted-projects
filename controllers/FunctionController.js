@@ -58,6 +58,12 @@ module.exports = function(app) {
                   functionNotFound(res);
                 }
               });    
+            },
+
+            delete : function(req, res){
+                Function.destroy({where: {id_project: req.params.id}}).then(function(){
+                    functionDeleted(res);
+                });
             }
 
         };
@@ -80,6 +86,10 @@ module.exports = function(app) {
 
         var functionNotFound = function(res){
             buildResponse(res, 404, 'Function Not Found');
+        };
+        
+        var functionDeleted = function(res){
+            buildResponse(res, 200, 'Segment Deleted');
         };
 
         var buildResponse = function(res, statusCode, message, func, error){
