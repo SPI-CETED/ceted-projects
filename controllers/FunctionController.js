@@ -61,7 +61,7 @@ module.exports = function(app) {
             },
 
             delete : function(req, res){
-                Function.destroy({where: {id_project: req.params.id}}).then(function(){
+                Function.destroy({where: {id_function: req.params.id}}).then(function(){
                     functionDeleted(res);
                 });
             }
