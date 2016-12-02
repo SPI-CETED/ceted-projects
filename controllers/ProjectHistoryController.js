@@ -16,6 +16,16 @@ module.exports = function(app) {
     			errorCreatingHistory(res, error);
 
     		});
+        },
+
+        findById : function(req, res){
+          ProjectHistory.findOne({where: {id: req.params.id}}).then(function(projectHistory){
+            if(projectHistory){
+              res.status(200).json(projectHistory);
+            }else{
+              projectHistoryNotFound(res);
+            }
+          });
         }
 
     };
@@ -26,6 +36,10 @@ module.exports = function(app) {
 
     var errorCreatingHistory = function(res, err){
         buildResponse(res, 500, 'History not Created', null, err);
+    };
+
+    var projectHistoryNotFound = function(res){
+        buildResponse(res, 404, 'ProjectHistory Not Found');
     };
 
     var buildResponse = function(res, statusCode, message, history, error){
