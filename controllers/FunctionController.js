@@ -37,7 +37,7 @@ module.exports = function(app) {
             },
 
             findById : function(req, res){
-              Function.findOne({where: {id: req.params.id}}).then(function(fn){
+              Function.findOne({where: {id_function: req.params.id}}).then(function(fn){
                 if(fn){
                   res.status(200).json(fn);
                 }else{
