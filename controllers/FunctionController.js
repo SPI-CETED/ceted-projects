@@ -44,6 +44,20 @@ module.exports = function(app) {
                   functionNotFound(res);
                 }
               });
+            },
+
+            update: function(req, res){
+              Function.findOne({where: {id_function: req.params.id}}).then(function(fn){
+                if(fn){
+                  fn.updateAttributes(req.body).then(function(fn){
+                    functionUpdated(fn, res);
+                  }).catch(function(error){
+                    errorUpdatingFunction(res, error);
+                  });
+                }else{
+                  functionNotFound(res);
+                }
+              });    
             }
 
         };
@@ -54,6 +68,14 @@ module.exports = function(app) {
 
         var errorCreatingHability = function(res, err){
             buildResponse(res, 500, 'Function not Created', null, err);
+        };
+
+        var errorUpdatingFunction = function(res, err){
+            buildResponse(res, 500, 'Function not Updated', null, err);
+        };
+
+        var functionUpdated = function(fn, res){
+            buildResponse(res, 201, 'Function Updated', projectRegistration);
         };
 
         var functionNotFound = function(res){
