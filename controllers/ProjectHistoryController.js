@@ -38,19 +38,47 @@ module.exports = function(app) {
         },
 
         findById : function(req, res){
-          ProjectHistory.findOne({where: {id: req.params.id}}).then(function(projectHistory){
+          ProjectHistory.findOne({where: {id_projectHistory: req.params.id}}).then(function(projectHistory){
             if(projectHistory){
               res.status(200).json(projectHistory);
             }else{
               projectHistoryNotFound(res);
             }
-          })
-        }
+          });
+        },
+
+        update: function(req, res){
+          ProjectHistory.findOne({where: {id_projectHistory: req.params.id}}).then(function(projectHistory){
+            if(projectHistory){
+              projectHistory.updateAttributes(req.body).then(function(projectHistory){
+                projectHistoryUpdated(projectHistory, res);
+              }).catch(function(error){
+                errorUpdatingProjectHistory(res, error);
+              });
+            }else{
+              projectHistoryNotFound(res);
+            }
+          });    
+        },
+        
+        delete : function(req, res){
+            ProjectHistory.destroy({where: {id_project: req.params.id}}).then(function(){
+                projectHistoryDeleted(res);
+            });
+        },
 
     };
 
     var historyCreated = function(history, res){
         buildResponse(res, 201, 'History Created', history);
+    };
+
+    var projectHistoryUpdated = function(projectHistory, res){
+        buildResponse(res, 201, 'ProjectHistory Updated', projectRegistration);
+    };
+
+    var errorUpdatingProjectHistory = function(res, err){
+        buildResponse(res, 500, 'ProjectHistory not Updated', null, err);
     };
 
     var errorCreatingHistory = function(res, err){
@@ -59,6 +87,10 @@ module.exports = function(app) {
 
     var projectHistoryNotFound = function(res){
         buildResponse(res, 404, 'ProjectHistory Not Found');
+    };
+
+    var projectHistoryDeleted = function(res){
+        buildResponse(res, 200, 'Segment Deleted');
     };
 
     var buildResponse = function(res, statusCode, message, history, error){

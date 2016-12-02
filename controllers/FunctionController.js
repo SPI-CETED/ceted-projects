@@ -37,13 +37,33 @@ module.exports = function(app) {
             },
 
             findById : function(req, res){
-              Function.findOne({where: {id: req.params.id}}).then(function(fn){
+              Function.findOne({where: {id_function: req.params.id}}).then(function(fn){
                 if(fn){
                   res.status(200).json(fn);
                 }else{
                   functionNotFound(res);
                 }
               });
+            },
+
+            update: function(req, res){
+              Function.findOne({where: {id_function: req.params.id}}).then(function(fn){
+                if(fn){
+                  fn.updateAttributes(req.body).then(function(fn){
+                    functionUpdated(fn, res);
+                  }).catch(function(error){
+                    errorUpdatingFunction(res, error);
+                  });
+                }else{
+                  functionNotFound(res);
+                }
+              });    
+            },
+
+            delete : function(req, res){
+                Function.destroy({where: {id_project: req.params.id}}).then(function(){
+                    functionDeleted(res);
+                });
             }
 
         };
@@ -56,8 +76,20 @@ module.exports = function(app) {
             buildResponse(res, 500, 'Function not Created', null, err);
         };
 
+        var errorUpdatingFunction = function(res, err){
+            buildResponse(res, 500, 'Function not Updated', null, err);
+        };
+
+        var functionUpdated = function(fn, res){
+            buildResponse(res, 201, 'Function Updated', projectRegistration);
+        };
+
         var functionNotFound = function(res){
             buildResponse(res, 404, 'Function Not Found');
+        };
+        
+        var functionDeleted = function(res){
+            buildResponse(res, 200, 'Segment Deleted');
         };
 
         var buildResponse = function(res, statusCode, message, func, error){
