@@ -18,6 +18,25 @@ module.exports = function(app) {
     		});
         },
 
+        list: function(req, res){
+            var limit = req.query.limit || 10;
+            limit = parseInt(limit);
+            var offset = req.query.offset || 0;
+            offset = parseInt(offset);
+
+            ProjectHistory.findAll({
+                limit: limit,
+                offset: offset,
+                order: 'id_project DESC'
+            }).then(function(projects){
+                var data = {};
+                data.result = projects;
+                data.limit = limit;
+                data.offset = offset;
+                res.status(200).json(data);
+            })
+        },
+
         findById : function(req, res){
           ProjectHistory.findOne({where: {id: req.params.id}}).then(function(projectHistory){
             if(projectHistory){
@@ -25,7 +44,7 @@ module.exports = function(app) {
             }else{
               projectHistoryNotFound(res);
             }
-          });
+          })
         }
 
     };
