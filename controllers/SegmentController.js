@@ -42,7 +42,12 @@ module.exports = function(app) {
 	          		segmentNotFound(res);
 	        	}
 	      	});
-	    }
+	    },
+        delete : function(req, res){
+            Segment.destroy({where: {id_project: req.params.id}}).then(function(){
+                segmentDeleted(res);
+            });
+        },
 
     };
 
@@ -56,6 +61,10 @@ module.exports = function(app) {
 
     var errorCreatingSegment = function(res, err){
         buildResponse(res, 500, 'Segment not Created', null, err);
+    };
+
+    var segmentDeleted = function(res){
+        buildResponse(res, 200, 'Segment Deleted');
     };
 
     var buildResponse = function(res, statusCode, message, segment, error){
