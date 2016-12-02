@@ -64,6 +64,7 @@ module.exports = function(app) {
         var functionNotFound = function(res){
             buildResponse(res, 404, 'Function Not Found');
         };
+        
         var functionDeleted = function(res){
             buildResponse(res, 200, 'Segment Deleted');
         };

@@ -59,7 +59,13 @@ module.exports = function(app) {
               projectHistoryNotFound(res);
             }
           });    
-        }
+        },
+        
+        delete : function(req, res){
+            ProjectHistory.destroy({where: {id_project: req.params.id}}).then(function(){
+                projectHistoryDeleted(res);
+            });
+        },
 
     };
 
@@ -81,6 +87,10 @@ module.exports = function(app) {
 
     var projectHistoryNotFound = function(res){
         buildResponse(res, 404, 'ProjectHistory Not Found');
+    };
+
+    var projectHistoryDeleted = function(res){
+        buildResponse(res, 200, 'Segment Deleted');
     };
 
     var buildResponse = function(res, statusCode, message, history, error){
