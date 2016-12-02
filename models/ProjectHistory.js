@@ -2,7 +2,7 @@
 
 module.exports = function(sequelize, DataTypes) {
   var ProjectHistory = sequelize.define("ProjectHistory", {
-    id_project : {
+    id_projectHistory : {
       type: DataTypes.INTEGER(11).UNSIGNED
     },
     historic: {
