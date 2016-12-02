@@ -34,6 +34,16 @@ module.exports = function(app) {
                 data.offset = offset;
                 res.status(200).json(data);
               })
+            },
+
+            findById : function(req, res){
+              Function.findOne({where: {id: req.params.id}}).then(function(fn){
+                if(fn){
+                  res.status(200).json(fn);
+                }else{
+                  functionNotFound(res);
+                }
+              });
             }
 
         };
@@ -44,6 +54,10 @@ module.exports = function(app) {
 
         var errorCreatingHability = function(res, err){
             buildResponse(res, 500, 'Function not Created', null, err);
+        };
+
+        var functionNotFound = function(res){
+            buildResponse(res, 404, 'Function Not Found');
         };
 
         var buildResponse = function(res, statusCode, message, func, error){
