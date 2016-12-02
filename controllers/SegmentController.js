@@ -6,7 +6,7 @@ module.exports = function(app) {
 
     var SegmentController = {
 
-        insert : function(req, res){
+        insert: function(req, res){
             Segment.build(req.body).save().then(function(segment){
 
     			segmentCreated(segment, res);
@@ -16,9 +16,39 @@ module.exports = function(app) {
     			errorCreatingSegment(res, error);
 
     		});
-        }
+        },
+        list: function(req, res){
+	    	var limit = req.query.limit || 10;
+	    	limit = parseInt(limit);
+	      	var offset = req.query.offset || 0;
+	      	offset = parseInt(offset);
+
+	      	Segment.findAll({
+	        	limit: limit,
+	        	offset: offset
+	      	}).then(function(segments){
+	        	var data = {};
+	        	data.result = segments;
+	        	data.limit = limit;
+	        	data.offset = offset;
+	        	res.status(200).json(data);
+	      })
+	    },
+	    findById : function(req, res){
+	      	Segment.findOne({where: {id: req.params.id}}).then(function(segment){
+	        	if(segment){
+	          		res.status(200).json(segment);
+	        	}else{
+	          		segmentNotFound(res);
+	        	}
+	      	});
+	    }
 
     };
+
+    var segmentNotFound = function(res){
+    	buildResponse(res, 404, 'Segment Not Found');
+	};
 
     var segmentCreated = function(segment, res){
         buildResponse(res, 201, 'Segment Created', segment);
